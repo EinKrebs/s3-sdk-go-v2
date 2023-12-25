@@ -31593,6 +31593,7 @@
             "type": "string"
         },
         "com.amazonaws.s3#Expect": {
+            // TODO: rewrite to enum with "100-continue" value?
             "type": "boolean"
         }
         "com.amazonaws.s3#XAmzDate": {
@@ -31715,6 +31716,31 @@
             },
             "traits": {
                 "smithy.api#input": {}
+            }
+        },
+        "com.amazonaws.s3#XAmzRequestId": {
+            "type": "string"
+        },
+        "com.amazonaws.s3#PatchObjectOutput": {
+            "type": "structure",
+            "members": {
+                "ETag": {
+                    "target": "com.amazonaws.s3#ETag",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Entity tag for the uploaded object.</p>\n         <p>\n            <b>General purpose buckets </b> - To ensure that data is not corrupted traversing the network, \n         for objects where the \n         ETag is the MD5 digest of the object, you can calculate the MD5 while putting an object to Amazon S3 and compare the returned ETag to\n      the calculated MD5 value.</p>\n         <p>\n            <b>Directory buckets </b> - The ETag for the object in a directory bucket isn't the MD5 digest of the object.</p>",
+                        "smithy.api#httpHeader": "ETag"
+                    }
+                },
+                "XAmzRequestId": {
+                    "target": "com.amazonaws.s3#XAmzRequestId",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Unique request ID.\n         You may need it when contacting the Yandex Cloud support service if any problems occur.</p>",
+                        "smithy.api#httpHeader": "X-Amz-Request-Id"
+                    }
+                }
+            },
+            "traits": {
+                "smithy.api#output": {}
             }
         },
         "com.amazonaws.s3#PutPublicAccessBlock": {
