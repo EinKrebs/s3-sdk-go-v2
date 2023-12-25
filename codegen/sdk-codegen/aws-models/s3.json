@@ -31566,9 +31566,33 @@
                 "smithy.api#input": {}
             }
         },
+        "com.amazonaws.s3#Authorization": {
+            "type": "string"
+        },
+        "com.amazonaws.s3#UnformattedDate": {
+            "type": "timestamp"
+        },
+        "com.amazonaws.s3#Host": {
+            "type": "string"
+        },
+        "com.amazonaws.s3#Expect": {
+            "type": "boolean"
+        }
+        "com.amazonaws.s3#XAmzDate": {
+            "type": "timestamp"
+        }
+        "com.amazonaws.s3#XYcS3PatchAppendPartSize": {
+            "type": "integer"
+        }
         "com.amazonaws.s3#PatchObjectRequest": {
             "type": "structure",
             "members": {
+                "Authorization": {
+                    "target": "com.amazonaws.s3#Authorization",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Any request to Yandex Object Storage must be authorized.\n        This header must be used with either the <code>Date</code> or <code>X-Amz-Date</code> header.\n        For mmore information, <a href=\"https://cloud.yandex.ru/en-ru/docs/storage/api-ref/authentication\">https://cloud.yandex.ru/en-ru/docs/storage/api-ref/authentication</a></p>"
+                    }
+                }
                 "CacheControl": {
                     "target": "com.amazonaws.s3#CacheControl",
                     "traits": {
@@ -31619,9 +31643,9 @@
                     }
                 },
                 "Date": {
-                    "target": "com.amazonaws.s3#Date",
+                    "target": "com.amazonaws.s3#UnformattedDate",
                     "traits": {
-                        "smithy.api#documentation": "<p>Indicates when objects are transitioned to the specified storage class. The date value\n         must be in ISO 8601 format. The time is always midnight UTC.</p>"
+                        "smithy.api#documentation": "<p>The date and time a request is sent.\n        Format: <code>Thu, 18 Jan 2018 09:57:35 GMT</code>.\n        When <code>X-Amz-Date</code> is set, Object Storage ignores the <code>Date</code> header.</p>"
                     }
                 },
                 "Expires": {
@@ -31631,30 +31655,46 @@
                         "smithy.api#httpHeader": "Expires"
                     }
                 },
-                // TODO: rewrite to Host
-                 "HostName": {
-                    "target": "com.amazonaws.s3#HostName",
+                "Expect": {
+                    "target": "com.amazonaws.s3#Expect",
                     "traits": {
-                        "smithy.api#documentation": "<p>The host name to use in the redirect request.</p>"
+                        "smithy.api#documentation": "<p>Expected <code>100-continue</code> code.\n        When uploading data to Object Storage, an app can use the following logic:\n        - Send a request without a body, but with the Expect: 100-continue header set.\n        - Send a request with a body after getting the <code>100-continue</code> response. This request must not have the <code>Expect</code> header.</p>"
                     }
                 },
-                // TODO: check for compatibility with YC Object Storage
+                 "Host": {
+                    "target": "com.amazonaws.s3#Host",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The host to receive the request.</p>"
+                    }
+                },
                 "IfMatch": {
                     "target": "com.amazonaws.s3#IfMatch",
                     "traits": {
-                        "smithy.api#documentation": "<p>Return the object only if its entity tag (ETag) is the same as the one specified in this header;\n         otherwise, return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are present in the request as follows: <code>If-Match</code> condition \n         evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
+                        "smithy.api#documentation": "<p>Patch the object only if its entity tag (ETag) is the same as the one specified in this header;\n         otherwise, return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are present in the request as follows: <code>If-Match</code> condition \n         evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
                         "smithy.api#httpHeader": "If-Match"
                     }
                 },
-                // TODO: same as previous
                 "IfUnmodifiedSince": {
                     "target": "com.amazonaws.s3#IfUnmodifiedSince",
                     "traits": {
-                        "smithy.api#documentation": "<p>Return the object only if it has not been modified since the specified time; otherwise,\n         return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code>\n                  headers are present in the request as follows: <code>If-Match</code> condition\n                  evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition\n                  evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
+                        "smithy.api#documentation": "<p>Patch the object only if it has not been modified since the specified time; otherwise,\n         return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code>\n                  headers are present in the request as follows: <code>If-Match</code> condition\n                  evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition\n                  evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
                         "smithy.api#httpHeader": "If-Unmodified-Since"
                     }
                 },
-                // TODO: Expect, X-Amz-Date, X-Yc-S3-Patch-Append-Part-Size
+                "XAmzDate": {
+                    "target": "com.amazonaws.s3#XAmzDate",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The date and time at the request source.\n        Format: <code>20211102T145822Z</code>.\n         When <code>X-Amz-Date</code> is set, Object Storage ignores the <code>Date</code> header.</p>",
+                        "smithy.api#httpHeader": "X-Amz-Date"
+                    }
+                },
+                "XYcS3PatchAppendPartSize": {
+                    "target": "com.amazonaws.s3#XYcS3PatchAppendPartSize",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Optional parameter.\n        Value: <code>{size_of_the_new_part}</code>.\n        The size of new parts of an object <a href=\"https://cloud.yandex.ru/en-ru/docs/storage/s3/api-ref/multipart\">uploaded in parts</a>, if\n        appending to the end of the object. In bytes.\n        If the object's last part has reached the specified size, the\n        next append will be saved as a new part.\n        The default value is 25 MB.</p>",
+                        "smithy.api#httpHeader": "X-Yc-S3-Patch-Append-Part-Size"
+                    }
+                }
             },
             "traits": {
                 "smithy.api#input": {}
