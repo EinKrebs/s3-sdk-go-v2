@@ -31566,6 +31566,100 @@
                 "smithy.api#input": {}
             }
         },
+        "com.amazonaws.s3#PatchObjectRequest": {
+            "type": "structure",
+            "members": {
+                "CacheControl": {
+                    "target": "com.amazonaws.s3#CacheControl",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Can be used to specify caching behavior along the request/reply chain. For more\n         information, see <a href=\"http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9\">http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9</a>.</p>",
+                        "smithy.api#httpHeader": "Cache-Control"
+                    }
+                },
+                "ContentDisposition": {
+                    "target": "com.amazonaws.s3#ContentDisposition",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Specifies presentational information for the object. For more information, see <a href=\"https://www.rfc-editor.org/rfc/rfc6266#section-4\">https://www.rfc-editor.org/rfc/rfc6266#section-4</a>.</p>",
+                        "smithy.api#httpHeader": "Content-Disposition"
+                    }
+                },
+                "ContentEncoding": {
+                    "target": "com.amazonaws.s3#ContentEncoding",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Specifies what content encodings have been applied to the object and thus what decoding\n         mechanisms must be applied to obtain the media-type referenced by the Content-Type header\n         field. For more information, see <a href=\"https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding\">https://www.rfc-editor.org/rfc/rfc9110.html#field.content-encoding</a>.</p>",
+                        "smithy.api#httpHeader": "Content-Encoding"
+                    }
+                },
+                "ContentLength": {
+                    "target": "com.amazonaws.s3#ContentLength",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Size of the body in bytes. This parameter is useful when the size of the body cannot be\n         determined automatically. For more information, see <a href=\"https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length\">https://www.rfc-editor.org/rfc/rfc9110.html#name-content-length</a>.</p>",
+                        "smithy.api#httpHeader": "Content-Length"
+                    }
+                },
+                "ContentRange": {
+                    "target": "com.amazonaws.s3#ContentRange",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The portion of the object returned in the response.</p>",
+                        "smithy.api#httpHeader": "x-amz-fwd-header-Content-Range"
+                    }
+                },
+                "ContentType": {
+                    "target": "com.amazonaws.s3#ContentType",
+                    "traits": {
+                        "smithy.api#documentation": "<p>A standard MIME type describing the format of the contents. For more information, see\n            <a href=\"https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type\">https://www.rfc-editor.org/rfc/rfc9110.html#name-content-type</a>.</p>",
+                        "smithy.api#httpHeader": "Content-Type"
+                    }
+                },
+                "ContentMD5": {
+                    "target": "com.amazonaws.s3#ContentMD5",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The base64-encoded 128-bit MD5 digest of the message (without the headers) according to\n         RFC 1864. This header can be used as a message integrity check to verify that the data is\n         the same data that was originally sent. Although it is optional, we recommend using the\n         Content-MD5 mechanism as an end-to-end integrity check. For more information about REST\n         request authentication, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/RESTAuthentication.html\">REST Authentication</a>.</p>\n         <note>\n            <p>The <code>Content-MD5</code> header is required for any request to upload an\n         object with a retention period configured using Amazon S3 Object Lock. For more\n         information about Amazon S3 Object Lock, see <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lock-overview.html\">Amazon S3 Object Lock\n            Overview</a> in the <i>Amazon S3 User Guide</i>. </p>\n         </note>\n         <note>\n            <p>This functionality is not supported for directory buckets.</p>\n         </note>",
+                        "smithy.api#httpHeader": "Content-MD5"
+                    }
+                },
+                "Date": {
+                    "target": "com.amazonaws.s3#Date",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Indicates when objects are transitioned to the specified storage class. The date value\n         must be in ISO 8601 format. The time is always midnight UTC.</p>"
+                    }
+                },
+                "Expires": {
+                    "target": "com.amazonaws.s3#Expires",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The date and time at which the object is no longer cacheable. For more information, see\n            <a href=\"https://www.rfc-editor.org/rfc/rfc7234#section-5.3\">https://www.rfc-editor.org/rfc/rfc7234#section-5.3</a>.</p>",
+                        "smithy.api#httpHeader": "Expires"
+                    }
+                },
+                // TODO: rewrite to Host
+                 "HostName": {
+                    "target": "com.amazonaws.s3#HostName",
+                    "traits": {
+                        "smithy.api#documentation": "<p>The host name to use in the redirect request.</p>"
+                    }
+                },
+                // TODO: check for compatibility with YC Object Storage
+                "IfMatch": {
+                    "target": "com.amazonaws.s3#IfMatch",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Return the object only if its entity tag (ETag) is the same as the one specified in this header;\n         otherwise, return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code> headers are present in the request as follows: <code>If-Match</code> condition \n         evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
+                        "smithy.api#httpHeader": "If-Match"
+                    }
+                },
+                // TODO: same as previous
+                "IfUnmodifiedSince": {
+                    "target": "com.amazonaws.s3#IfUnmodifiedSince",
+                    "traits": {
+                        "smithy.api#documentation": "<p>Return the object only if it has not been modified since the specified time; otherwise,\n         return a <code>412 Precondition Failed</code> error.</p>\n         <p>If both of the <code>If-Match</code> and <code>If-Unmodified-Since</code>\n                  headers are present in the request as follows: <code>If-Match</code> condition\n                  evaluates to <code>true</code>, and; <code>If-Unmodified-Since</code> condition\n                  evaluates to <code>false</code>; then, S3 returns <code>200 OK</code> and the data requested. </p>\n         <p>For more information about conditional requests, see <a href=\"https://tools.ietf.org/html/rfc7232\">RFC 7232</a>.</p>",
+                        "smithy.api#httpHeader": "If-Unmodified-Since"
+                    }
+                },
+                // TODO: Expect, X-Amz-Date, X-Yc-S3-Patch-Append-Part-Size
+            },
+            "traits": {
+                "smithy.api#input": {}
+            }
+        },
         "com.amazonaws.s3#PutPublicAccessBlock": {
             "type": "operation",
             "input": {
