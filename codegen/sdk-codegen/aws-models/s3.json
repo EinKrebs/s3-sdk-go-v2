@@ -31566,6 +31566,23 @@
                 "smithy.api#input": {}
             }
         },
+        "com.amazonaws.s3#PatchObject": {
+            "type": "operation",
+            "input": {
+                "target": "com.amazonaws.s3#PatchObjectRequest"
+            },
+            "output": {
+                "target": "com.amazonaws.s3#PatchObjectOutput"
+            },
+            "traits": {
+                "smithy.api#documentation": "<p><a href=\"https://cloud.yandex.ru/en-ru/docs/storage/concepts/object-patch\">Partially updates and appends object data</a> in Yandex Object Storage.</p>",
+                "smithy.api#http": {
+                    "method": "PATCH",
+                    "uri": "/{Bucket}/{Key}",
+                    "code": 200
+                }
+            }
+        },
         "com.amazonaws.s3#Authorization": {
             "type": "string"
         },
